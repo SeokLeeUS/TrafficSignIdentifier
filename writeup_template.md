@@ -127,7 +127,7 @@ Number of classes = 43
 
 Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
 
-![alt text][image1]
+![data_visualization][./germantrafficsign_data_visualization.png]
 
 ### Design and Test a Model Architecture
 
