@@ -8,12 +8,12 @@
 
 The goals / steps of this project are the following:
 
-** step 0 Image of German traffic sign
-* step 0.1 Load pickled dataset
-* step 0.2 Perform the initial sanity check to see if the images are correct. 
-** step 1 Design and test a model architecture
-* step 1.1 Pre-process image (normalization, grayscale,etc.)
-* step 1.2 Include an exploratory visualization of the dataset
+**step 0 Image of German traffic sign
+*step 0.1 Load pickled dataset
+*step 0.2 Perform the initial sanity check to see if the images are correct. 
+**step 1 Design and test a model architecture
+*step 1.1 Pre-process image (normalization, grayscale,etc.)
+*step 1.2 Include an exploratory visualization of the dataset
 
 * Explore, summarize and visualize the data set
 * Design, train and test a model architecture
