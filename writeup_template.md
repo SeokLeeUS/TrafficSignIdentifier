@@ -98,8 +98,7 @@ ClassId_Name = my_csv.ClassId
 Sign_Name = my_csv.SignName
 
 print(len(ClassId_Name))
-
-'''
+```
 
 ```python
 n_train = len(X_train)
