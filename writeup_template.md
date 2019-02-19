@@ -114,6 +114,15 @@ print("Number of training examples =", n_train)
 print("Number of testing examples =", n_test)
 print("Image data shape =", image_shape)
 print("Number of classes =", n_classes)
+
+.
+.
+.
+Number of training examples = 34799
+Number of testing examples = 12630
+Image data shape = (34799, 32, 32, 3)
+Number of classes = 43
+
 ```
 
 #### 2. Include an exploratory visualization of the dataset.
