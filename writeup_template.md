@@ -26,13 +26,6 @@ The goals / steps of this project are the following:
   * step 3.4: Analyze performance
   * step 3.5: Output to 5 softmax probability for each image found the web
 
-* Explore, summarize and visualize the data set
-* Design, train and test a model architecture
-* Use the model to make predictions on new images
-* Analyze the softmax probabilities of the new images
-* Summarize the results with a written report
-
-
 [//]: # (Image References)
 
 [image1]: ./mysigns/visualization.jpg "Visualization"
