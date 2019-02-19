@@ -140,9 +140,21 @@ There are  things to consider:
   - batch/epoch size
   - learning rate
 
-As a first step, I decided to convert the images to grayscale because ...
+* A pre-process the image (normalization, grayscale,etc.)
 
-Here is an example of a traffic sign image before and after grayscaling.
+Here is an example of a traffic sign image before and after grayscaling and normalization
+
+- raw image:
+
+ ![raw image](./raw_image_preprocessing.png)
+
+- normalized image:
+
+ ![normalized image](./norm_image_preprocessing.png)
+
+- grayscaling image:
+
+ ![normalized grayed_image](./norm_grayed_image_preprocessing.png)
 
 ![alt text][image2]
 
