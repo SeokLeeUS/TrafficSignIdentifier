@@ -90,7 +90,7 @@ for i in range( columns*rows ):
 plt.show()  # finally, render the plot
 ```
 
-[image1]: ./mysigns/visualization.jpg "Visualization"
+![Random_Sign](./germantrafficsign_random-Udacity.png)
 
 * Parameterize the number of images by using pandas read_csv attribute and extract other number of image datsets:
 
