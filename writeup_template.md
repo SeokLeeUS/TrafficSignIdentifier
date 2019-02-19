@@ -45,20 +45,74 @@ The goals / steps of this project are the following:
 
 #### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
 
-You're reading it! and here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
+You're reading it! and here is a link to my [project code](https://github.com/SeokLeeUS/TrafficSignIdentifier/blob/master/Traffic_Sign_Classifier-04-Image_Pre-processing_submission_00.ipynb)
 
 ### Data Set Summary & Exploration
 
 #### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
-I used the pandas library to calculate summary statistics of the traffic
-signs data set:
+* I loaded pickled data (of which data type is dict) and extracted train/valid/test dataset. 
 
-* The size of training set is ?
-* The size of the validation set is ?
-* The size of test set is ?
-* The shape of a traffic sign image is ?
-* The number of unique classes/labels in the data set is ?
+```python
+X_train, y_train = train['features'], train['labels']
+print('X_train.shape:',X_train.shape)
+X_valid, y_valid = valid['features'], valid['labels']
+print('X_valid.shape:',X_valid.shape)
+X_test, y_test = test['features'], test['labels']
+print('X_test.shape:',X_test.shape)
+```
+
+* In order to examine images, plotted random German sign images. 
+
+```python
+index = random.randint(0, len(X_train))
+print('random index',index)
+image = X_train[index].squeeze()
+print('image.shape:',image.shape)
+
+w = 10
+h = 10
+fig = plt.figure(figsize=(9, 13))
+columns = 4
+rows = 5
+ax = []
+
+for i in range( columns*rows ):
+    #img = np.random.randint(10, size=(h,w))  
+    index = random.randint(0, len(X_train))
+    img = X_train[index].squeeze()
+    
+    # create subplot and append to ax
+    ax.append( fig.add_subplot(rows, columns, i+1) )
+    ax[-1].set_title("ax:"+str(i))  # set title
+    plt.imshow(img)
+
+plt.show()  # finally, render the plot
+```
+* Parameterize the number of images by using pandas read_csv attribute and extract other number of image datsets:
+
+```python
+import pandas as pd
+my_csv = pd.read_csv('signnames.csv')
+ClassId_Name = my_csv.ClassId
+Sign_Name = my_csv.SignName
+
+print(len(ClassId_Name))
+
+'''
+
+```python
+n_train = len(X_train)
+n_validation = len(X_valid) 
+n_test = len(X_test)
+image_shape = X_train.shape
+n_classes = len(ClassId_Name)
+
+print("Number of training examples =", n_train)
+print("Number of testing examples =", n_test)
+print("Image data shape =", image_shape)
+print("Number of classes =", n_classes)
+```
 
 #### 2. Include an exploratory visualization of the dataset.
 
