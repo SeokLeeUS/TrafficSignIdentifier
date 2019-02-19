@@ -131,12 +131,12 @@ Here is an exploratory visualization of the data set. It is a bar chart showing 
 
 ### Design and Test a Model Architecture
 
-#### 1. Design and implement a deep learning model that learns to recognize traffic signs. Train and test your model on the German Traffic Sign Dataset [project code](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset)
+#### 1. Design and implement a deep learning model that learns to recognize traffic signs. Train and test your model on the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset)
 
 There are  things to consider:
 - preprocessing techniques (normalization, graying out, centralization, standardization, whitening)
 - Neural network architecture
-- Hyper parameters [project code](https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning))
+- [Hyper parameters](https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning))
   - batch/epoch size
   - learning rate
 
