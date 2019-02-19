@@ -62,7 +62,7 @@ X_test, y_test = test['features'], test['labels']
 print('X_test.shape:',X_test.shape)
 ```
 
-* In order to examine images, plotted random German sign images. 
+* In order to examine images, plot random German sign images. 
 
 ```python
 index = random.randint(0, len(X_train))
@@ -89,6 +89,9 @@ for i in range( columns*rows ):
 
 plt.show()  # finally, render the plot
 ```
+
+[image1]: ./mysigns/visualization.jpg "Visualization"
+
 * Parameterize the number of images by using pandas read_csv attribute and extract other number of image datsets:
 
 ```python
