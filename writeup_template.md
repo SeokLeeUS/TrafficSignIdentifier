@@ -12,10 +12,10 @@ The goals / steps of this project are the following:
   * step 0.1: Load pickled dataset
   * step 0.2: Perform the initial sanity check to see if the images are correct. 
 * step 1: Design and test a model architecture
-* step 1.1: Pre-process image (normalization, grayscale,etc.)
-* step 1.2: Include an exploratory visualization of the dataset
-* step 1.2.1: Convoluted image example
-* step 1.2.2: Maxpooling image example 
+  * step 1.1: Pre-process image (normalization, grayscale,etc.)
+  * step 1.2: Include an exploratory visualization of the dataset
+    * step 1.2.1: Convoluted image example
+    * step 1.2.2: Maxpooling image example 
 * step 2: Train and validate the model 
 * step 2.1: Model parameter/function definition 
 * step 2.2: Model training
