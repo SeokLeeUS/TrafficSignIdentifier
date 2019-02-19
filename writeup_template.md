@@ -16,9 +16,9 @@ The goals / steps of this project are the following:
   * step 1.2: Include an exploratory visualization of the dataset
     * step 1.2.1: Convoluted image example
     * step 1.2.2: Maxpooling image example 
-* step 2: Train and validate the model 
+* step 2: Design and test a model architecture
   * step 2.1: Model parameter/function definition 
-  * step 2.2: Model training
+  * step 2.2: Model training/validation
 * step 3: Test the model with new images
   * step 3.1: Load example of new images
   * step 3.2: pre-processing image(graying/normalization)
