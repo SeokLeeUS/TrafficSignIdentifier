@@ -41,17 +41,15 @@ The goals / steps of this project are the following:
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
 
 ---
-### Writeup / README
 
-#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
-
-You're reading it! and here is a link to my [project code](https://github.com/SeokLeeUS/TrafficSignIdentifier/blob/master/Traffic_Sign_Classifier-04-Image_Pre-processing_submission_00.ipynb)
+This is the Python jupyter code:
+[project code](https://github.com/SeokLeeUS/TrafficSignIdentifier/blob/master/Traffic_Sign_Classifier-04-Image_Pre-processing_submission_00.ipynb)
 
 ### Data Set Summary & Exploration
 
 #### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
-* I loaded pickled data (of which data type is dict) and extracted train/valid/test dataset. 
+* Load pickled data (of which data type is dict) and extract train/valid/test dataset of German traffic sign.
 
 ```python
 X_train, y_train = train['features'], train['labels']
@@ -92,7 +90,7 @@ plt.show()  # finally, render the plot
 
 ![Random_Sign](./germantrafficsign_random-Udacity.png)
 
-* Parameterize the number of images by using pandas read_csv attribute and extract other number of image datsets:
+* Obtain the number of images by using pandas read_csv attribute and extract other number of image datsets:
 
 ```python
 import pandas as pd
