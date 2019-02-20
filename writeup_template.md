@@ -265,6 +265,11 @@ My final model results were:
 * training set accuracy of 1
 * validation set accuracy of 0.954 
 
+| Data set        		|     Accuracy	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| Training       		| 1  							| 
+| Validation    	|  0.954 	|
+
 If an iterative approach was chosen:
 * The first chosen architecture: 2 conv+2 max pool+ 1 FC
   * Issue with the first architecture: poor accuracy, obviously.
