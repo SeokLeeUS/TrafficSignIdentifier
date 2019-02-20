@@ -406,6 +406,8 @@ with tf.Session() as sess:
 ```
 
 ![softmaxprobabilities](./softmaxprobabilities.png)
-
-
-
+![softmaxprobabilities1](./softmaxprobabilities1.png)
+![softmaxprobabilities2](./softmaxprobabilities2.png)
+![softmaxprobabilities3](./softmaxprobabilities3.png)
+![softmaxprobabilities4](./softmaxprobabilities4.png)
+![softmaxprobabilities5](./softmaxprobabilities5.png)
