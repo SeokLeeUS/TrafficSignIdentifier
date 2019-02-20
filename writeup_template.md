@@ -208,12 +208,66 @@ My final model consisted of the following layers:
 | Softmax				|       									|
 |						|												|
 |						|												|
- 
 
+
+```python
+
+def LeNet2(X):
+    
+    L1 = tf.layers.conv2d(X,32,[3,3],activation=tf.nn.relu,padding = 'SAME')
+    #print(L1)
+    L1 = tf.layers.max_pooling2d(L1,[2,2],[2,2],padding = 'SAME')
+    # Feb202019 adding drop out on the first hidden layer 
+    #L1 = tf.layers.dropout(L1,0.7,is_training)
+    #print(L1)
+    #W1 = tf.Variable(tf.random_normal([3,3,1,32],stddev = 0.01))
+    #L1 = tf.nn.conv2d(x,W1,strides = [1,1,1,1],padding = 'SAME')
+    #L1 = tf.nn.relu(L1)
+    #L1 = tf.nn.max_pool(L1,ksize=[1,2,2,1],strides = [1,2,2,1],padding = 'SAME')
+    #L1 = tf.nn.dropout(L1,keep_prob)
+    
+    L2 = tf.layers.conv2d(L1,64,[3,3],activation= tf.nn.relu,padding = 'SAME')
+    #print(L2)
+    L2 = tf.layers.max_pooling2d(L2,[2,2],[2,2],padding = 'SAME')
+    L2 = tf.layers.dropout(L2,0.7,is_training)
+    
+    
+    #L3 = tf.layers.conv2d(L1,128,[3,3],activation= tf.nn.relu,padding = 'SAME')
+    #print(L3)
+    #L3 = tf.layers.max_pooling2d(L3,[2,2],[2,2],padding = 'SAME')
+    #print(L3)
+    
+
+    L3 = tf.contrib.layers.flatten(L2)
+    #print(L4)
+    L3 = tf.layers.dense(L3,256,activation = tf.nn.relu)
+    #print(L4)
+    L3 = tf.layers.dropout(L3,0.5,is_training)
+    
+    logits = tf.layers.dense(L3,n_classes,activation = None)
+    #print(model)
+    
+    return logits
+
+
+```
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used an ....
+Optmizer: AdamOptimizer
+Batch size 
+
+
+| Characteristics        		|     Description	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| Optimizer        		| AdamOptimizer   							| 
+| Batch size     	|  100 	|
+| Epoch size					|		25										|
+| Learning rate	      	| 0.001				|
+
+
+
+
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
