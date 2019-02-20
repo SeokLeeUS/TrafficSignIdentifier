@@ -324,7 +324,7 @@ If an iterative approach was chosen:
 
 ### Test a Model on New Images
 
-#### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+#### 1. Choose German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
 * Here are random German traffic signs that I found on the web:
 
@@ -334,6 +334,12 @@ If an iterative approach was chosen:
 
 ![random_German_traffic_sign_preprocessing](./random_german_sign_preprocessed.png)
 
+
+```python
+my_signs = np.array(my_signs)
+my_signs_gray = np.sum(my_signs/3, axis=3, keepdims=True)
+my_signs_normalized = my_signs_gray/255-1
+```
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
@@ -349,7 +355,10 @@ If an iterative approach was chosen:
 | General caution		| General caution      							|
 
 
-* The model was able to correctly guess 6 of the 6 traffic signs, which gives an accuracy of 100%. 
+* Used the same training model, and hyperparameters which achieved 100% accuracy during training. 
+
+The model was able to correctly guess 6 of the 6 traffic signs, which gives an accuracy of 100%. 
+
 
 ```python
 ### Calculate the accuracy for these 5 new images. 
