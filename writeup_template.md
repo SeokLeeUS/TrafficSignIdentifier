@@ -267,45 +267,44 @@ My final model results were:
 
 If an iterative approach was chosen:
 * The first chosen architecture: 2 conv+2 max pool+ 1 FC
-* Issue with the first architecture: poor accuracy, obviously.
-* Issue details: 
-I faced both under fitting and over-fitting( validation dataset resulted in poor accuracy)
-The following changes were made to tackle the issue:
-a. added a drop-out at FC
-b. adjusted batch,epoch/learning rate
-c. improved image pre-processing
+  * Issue with the first architecture: poor accuracy, obviously.
+  * Issue details: 
+     I faced both under fitting and over-fitting( validation dataset resulted in poor accuracy)
+     The following changes were made to tackle the issue:
+       a. added a drop-out at FC
+       b. adjusted batch,epoch/learning rate
+       c. improved image pre-processing
 
 * Steps to improve the accuracy:
-- Found mistakes on normalization equation. 
-- Found validation dataset also needs to be pre-processed. 
-- Found batch size increases, I am facing memory issue.... 
-- I added drop out on FC, it improves a bit, but not that much. The gross improvement arrived by adjusting image pre-processing on validation data set and fixing wrong pre-processing equation. 
+  - Found mistakes on normalization equation. 
+  - Found validation dataset also needs to be pre-processed. 
+  - Found batch size increases, I am facing memory issue.... 
+  - I added drop out on FC, it improves a bit, but not that much. The gross improvement arrived by adjusting image pre-processing on validation data set and fixing wrong pre-processing equation. 
 
 * Further improvement (or things I could try) and questions to seek by myself:
 
-- Adding more hidden layers, and increase number of layers
-- how can I characterize what hyperparameter can influence more on the accuracy performance
-- try to implement reknown architecture like AlexNet to see what benefit I can take. 
-- need to explore more about image pre-processing ( at the end of the day, it's all driven by how to extract and polish the image to feed in CNN)
-- I need to learn more matplotlib to visualize data. 
-
+  - Adding more hidden layers, and increase number of layers
+  - how can I characterize what hyperparameter can influence more on the accuracy performance
+  - try to implement reknown architecture like AlexNet to see what benefit I can take. 
+  - need to explore more about image pre-processing ( at the end of the day, it's all driven by how to extract and polish the image to feed in CNN)
+  - I need to learn more matplotlib to visualize data. 
 
 ### Test a Model on New Images
 
 #### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
-Here are random German traffic signs that I found on the web:
+* Here are random German traffic signs that I found on the web:
 
 ![random_German_traffic_sign](./random_german_sign.png)
 
-After pre-processing:
+* After pre-processing:
 
 ![random_German_traffic_sign_preprocessing](./random_german_sign_preprocessed.png)
 
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
-Here are the results of the prediction:
+* Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
@@ -317,7 +316,7 @@ Here are the results of the prediction:
 | General caution		| General caution      							|
 
 
-The model was able to correctly guess 6 of the 6 traffic signs, which gives an accuracy of 100%. 
+* The model was able to correctly guess 6 of the 6 traffic signs, which gives an accuracy of 100%. 
 
 ```python
 ### Calculate the accuracy for these 5 new images. 
