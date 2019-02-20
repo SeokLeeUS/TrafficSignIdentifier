@@ -196,13 +196,16 @@ My final model consisted of the following layers:
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
+| Input         		| 32x32x1 Gray image   							| 
+| Convolution 3x3     	| 1x1 stride, same padding, outputs 32 hidden layers 	|
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
+| Max pooling	      	| 2x2 stride				|
+| Convolution 3x3	    | 1x1 stride, same padding, outputs 64 hidden layers      									|
+| RELU					|												|
+| Max pooling	      	| 2x2 stride 				|
+| Fully connected		|
+| dropout | 0.5 drop out rate|
+| Softmax				|       									|
 |						|												|
 |						|												|
  
