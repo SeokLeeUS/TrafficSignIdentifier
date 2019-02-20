@@ -60,7 +60,7 @@ X_test, y_test = test['features'], test['labels']
 print('X_test.shape:',X_test.shape)
 ```
 
-* In order to examine images, plot random German sign images. 
+* In order to examine images, plot German signs randomly. 
 
 ```python
 index = random.randint(0, len(X_train))
@@ -123,7 +123,7 @@ Number of classes = 43
 
 ```
 
-#### 2. Include an exploratory visualization of the dataset.
+#### 2. Data visualization
 
 Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
 
@@ -152,24 +152,43 @@ Here is an example of a traffic sign image before and after grayscaling and norm
 
  ![normalized image](./norm_image_preprocessing.png)
 
-- grayscaling image:
+- grayscaling& normalizated image:
 
  ![normalized grayed_image](./norm_grayed_image_preprocessing.png)
 
-![alt text][image2]
+* Include an exploratory visualization of the dataset
 
-As a last step, I normalized the image data because ...
+A. examine convoluted images:
+```python
 
-I decided to generate additional data because ... 
+sess = tf.InteractiveSession()
+#img = img.reshape(-1,28,28,1)
+W1 = tf.Variable(tf.random_normal([3,3,1,5],stddev = 0.01))
+conv2d = tf.nn.conv2d(img_reshape,W1,strides = [1,2,2,1],padding = 'SAME')
+print(conv2d)
+sess.run(tf.global_variables_initializer())
+conv2d_img = conv2d.eval()
+conv2d_img = np.swapaxes(conv2d_img,0,3)
+for i, one_img in enumerate(conv2d_img):
+    # plt.subplot(1,5,i+1), plt.imshow(one_img.reshape(14,14),cmap ='gray')
+    plt.subplot(2,5,i+1), plt.imshow(one_img.reshape(16,16),cmap ='gray')
+```
+ ![convoluted_image](./convoluted.png)
 
-To add more data to the the data set, I used the following techniques because ... 
+B. examine maxpool images:
+```python
 
-Here is an example of an original image and an augmented image:
-
-![alt text][image3]
-
-The difference between the original data set and the augmented data set is the following ... 
-
+# check maxpooling image
+# max pool image
+pool = tf.nn.max_pool(conv2d,ksize=[1,2,2,1],strides=[1,2,2,1],padding='SAME')
+print(pool)
+sess.run(tf.global_variables_initializer())
+pool_img = pool.eval()
+pool_img = np.swapaxes(pool_img,0,3)
+for i, one_img in enumerate(pool_img):
+    plt.subplot(1,5,i+1),plt.imshow(one_img.reshape(8,8),cmap = 'gray')
+```
+ ![convoluted_image](./maxpool.png)
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
