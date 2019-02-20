@@ -140,7 +140,37 @@ There are  things to consider:
   - batch/epoch size
   - learning rate
 
-* A pre-process the image (normalization, grayscale,etc.)
+  * Pre-process the image- (normalization, grayscale)
+
+    - For the entire training data, make sure that the average value for each pixel is zero. That is, add the whole image, divide it by the number to get the 'average image', and subtract this image from all the images. This course is almost necessary! If you subtract 127.5 from 0 to 255 in the image and set the average to zero (called as centering), the dynamic range is too large to train. To do this, you can simply resize it. If you have a value between [0, 255], you can divide it by 255 and change it to a value between [0, 1]. [0, 1] is later compared to the output of Relu function. https://deepestdocs.readthedocs.io/en/latest/003_image_processing/0030/
+
+```python
+
+# normalization for pre-processing
+def normCNN(X):
+    X = X.reshape(X.shape[0], X.shape[1]*X.shape[2]*X.shape[3])
+    # normalization
+    X_norm = (X-255)/255
+    # centeralization
+    #X_norm = X_norm - X_norm.mean(axis=0)
+    # standardization
+    #X_norm = X_norm/np.std(X_norm, axis = 0)
+    # rescaling to set between 0 and 1    
+    return X_norm
+
+```
+
+    - In terms of grayingscale pre-processing, image classification in this project doesn't necessarily deal with color channel. In order to cut down complexity which in turn resulted in consuming computing power, graying out is chosen:
+
+```python
+# graying out
+#X_train_gray = np.sum(X_train/3, axis=3, keepdims=True)
+X_train = X_train.mean(axis=-1,keepdims=1) 
+X_valid = X_valid.mean(axis=-1,keepdims=1)
+X_test = X_test.mean(axis=-1,keepdims=1)
+X_train.shape
+
+```
 
 Here is an example of a traffic sign image before and after grayscaling and normalization
 
