@@ -422,7 +422,7 @@ for i in range(len(my_images_1)):
 
 1.2.2 after pre-processing (normalization/grayscale):
 
-![random_German_traffic_sign_1_preprocessed](./random_german_sign_1_resized_preprocessed.png)
+![random_German_traffic_sign_1_preprocessed](./random_german_sign_1_resized_normalized.png)
 
 
 
