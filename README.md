@@ -415,7 +415,7 @@ for i in range(len(my_images_1)):
     img_test_2 = img_test_2.resize((new_width,new_height),Image.ANTIALIAS)
     width,height = img_test_2.size
     print('Dimensions #',i,':', img_test_2.size,'total pixels:',width*height)
-    img_test_2.save('./mysigns/%d_1.jpg' %(i+1))
+    img_test_2.save('./mysigns/resizing/%d_1.jpg' %(i+1))
 ```
 
 ![random_German_traffic_sign_1_resized](./random_german_sign_1_resized.png)
