@@ -134,7 +134,7 @@ Here is an exploratory visualization of the data set. It is a bar chart showing 
 #### 1. Design and implement a deep learning model that learns to recognize traffic signs. Train and test your model on the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset)
 
 There are  things to consider:
-- preprocessing techniques (normalization, graying out, centralization, standardization, whitening)
+- pre-processing techniques (normalization, graying out, centralization, standardization, whitening)
 - Neural network architecture
 - [Hyper parameters](https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning))
   - batch/epoch size
@@ -142,9 +142,13 @@ There are  things to consider:
 
   * Pre-process the image- (Normalization, grayscale)
 
-    - Normalization: For the entire training data, make sure that the average value for each pixel is zero. That is, add the whole image, divide it by the number to get the 'average image', and subtract this image from all the images. This course is almost necessary! If you subtract 127.5 from 0 to 255 in the image and set the average to zero (called as centering), the dynamic range is too large to train. To do this, you can simply resize it. If you have a value between [0, 255], you can divide it by 255 and change it to a value between [0, 1]. [0, 1] is later compared to the output of Relu function. https://deepestdocs.readthedocs.io/en/latest/003_image_processing/0030/
+    - Normalization: I follow the method of normalization by referring to the following references: 
+     https://deepestdocs.readthedocs.io/en/latest/003_image_processing/0030/
+     https://en.wikipedia.org/wiki/Feature_scaling
     
-    - Grayscale: In terms of grayingscale pre-processing, image classification in this project doesn't necessarily deal with color channel. In order to cut down complexity which in turn resulted in consuming computing power, graying out is chosen:
+    - Grayscale: In terms of grayingscale pre-processing, image classification in this project doesn't necessarily deal with color channel. In order to cut down complexity which in turn resulted in consuming computational power, grayscale was chosen as part of pre-processing. 
+    
+
 
 ```python
 # normalization for pre-processing
@@ -158,16 +162,21 @@ def normCNN(X):
     #X_norm = X_norm/np.std(X_norm, axis = 0)
     # rescaling to set between 0 and 1    
     return X_norm
+    
+ def RescaleCNN(X):
+    X_rescaled = (X - X.min()) / (X.max() - X.min())  
+    return X_rescaled
 ```
 
 ```python
-# graying out
-#X_train_gray = np.sum(X_train/3, axis=3, keepdims=True)
-X_train = X_train.mean(axis=-1,keepdims=1) 
-X_valid = X_valid.mean(axis=-1,keepdims=1)
-X_test = X_test.mean(axis=-1,keepdims=1)
-X_train.shape
+def grayscale(image):
+    return np.sum(image/3, axis=3, keepdims=True)
+```
 
+```python
+X_train_n = RescaleCNN(normCNN(grayscale(X_train)))
+X_valid_n = RescaleCNN(normCNN(grayscale(X_valid)))
+X_test_n =  RescaleCNN(normCNN(grayscale(X_test)))
 ```
 
 Here is an example of a traffic sign image before and after grayscaling and normalization
@@ -219,19 +228,35 @@ for i, one_img in enumerate(pool_img):
  ![convoluted_image](./maxpool.png)
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
+Feb212019: revisited training model due to instable robustness which resulted in poor accuracy. 
 
 My final model consisted of the following layers:
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Input         		| 32x32x1 Gray image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32 hidden layers 	|
+| Convolution 5x5     	| 1x1 stride, same padding, outputs 32 hidden layers 	|
 | RELU					|												|
 | Max pooling	      	| 2x2 stride				|
-| Convolution 3x3	    | 1x1 stride, same padding, outputs 64 hidden layers      									|
+| dropout | 0.3 drop out rate|
+| Convolution 5x5	    | 1x1 stride, same padding, outputs 64 hidden layers      									|
 | RELU					|												|
 | Max pooling	      	| 2x2 stride 				|
-| Fully connected		|
+| dropout | 0.3 drop out rate|
+| Convolution 3x3	    | 1x1 stride, same padding, outputs 128 hidden layers      									|
+| RELU					|												|
+| Max pooling	      	| 2x2 stride 				|
+| dropout | 0.3 drop out rate|
+| Convolution 5x5	    | 1x1 stride, same padding, outputs 256 hidden layers      									|
+| RELU					|												|
+| Max pooling	      	| 2x2 stride 				|
+| dropout | 0.3 drop out rate|
+|flattening |
+| Fully connected #1	| 625 layers	|
+| RELU|   |
+| dropout | 0.5 drop out rate|
+| Fully connected #2	| 128 layers	|
+| RELU|   |
 | dropout | 0.5 drop out rate|
 | Softmax				|       									|
 
@@ -240,11 +265,11 @@ My final model consisted of the following layers:
 
 def LeNet2(X):
     
-    L1 = tf.layers.conv2d(X,32,[3,3],activation=tf.nn.relu,padding = 'SAME')
+    L1 = tf.layers.conv2d(X,32,[5,5],activation=tf.nn.relu,padding = 'SAME')
     #print(L1)
     L1 = tf.layers.max_pooling2d(L1,[2,2],[2,2],padding = 'SAME')
-    # Feb202019 adding drop out on the first hidden layer 
-    #L1 = tf.layers.dropout(L1,0.7,is_training)
+    L1 = tf.layers.dropout(L1, 0.3, is_training)
+
     #print(L1)
     #W1 = tf.Variable(tf.random_normal([3,3,1,32],stddev = 0.01))
     #L1 = tf.nn.conv2d(x,W1,strides = [1,1,1,1],padding = 'SAME')
@@ -252,25 +277,36 @@ def LeNet2(X):
     #L1 = tf.nn.max_pool(L1,ksize=[1,2,2,1],strides = [1,2,2,1],padding = 'SAME')
     #L1 = tf.nn.dropout(L1,keep_prob)
     
-    L2 = tf.layers.conv2d(L1,64,[3,3],activation= tf.nn.relu,padding = 'SAME')
+    L2 = tf.layers.conv2d(L1,64,[5,5],activation= tf.nn.relu,padding = 'SAME')
     #print(L2)
     L2 = tf.layers.max_pooling2d(L2,[2,2],[2,2],padding = 'SAME')
-    L2 = tf.layers.dropout(L2,0.7,is_training)
+    L2 = tf.layers.dropout(L2, 0.3, is_training)
     
     
-    #L3 = tf.layers.conv2d(L1,128,[3,3],activation= tf.nn.relu,padding = 'SAME')
+    L2_a = tf.layers.conv2d(L2,128,[3,3],activation= tf.nn.relu,padding = 'SAME')
+    #print(L2)
+    L2_a = tf.layers.max_pooling2d(L2_a,[2,2],[2,2],padding = 'SAME')
+    L2_a = tf.layers.dropout(L2_a, 0.3, is_training)
+    
+    L2_b = tf.layers.conv2d(L2_a,256,[5,5],activation= tf.nn.relu,padding = 'SAME')
     #print(L3)
-    #L3 = tf.layers.max_pooling2d(L3,[2,2],[2,2],padding = 'SAME')
-    #print(L3)
+    L2_b = tf.layers.max_pooling2d(L2_b,[2,2],[2,2],padding = 'SAME')
+    L2_b = tf.layers.dropout(L2_b, 0.3, is_training)
     
-
-    L3 = tf.contrib.layers.flatten(L2)
+    
+    L3 = tf.contrib.layers.flatten(L2_b)
     #print(L4)
-    L3 = tf.layers.dense(L3,256,activation = tf.nn.relu)
+    L3 = tf.layers.dense(L3,625,activation = tf.nn.relu)
     #print(L4)
     L3 = tf.layers.dropout(L3,0.5,is_training)
     
-    logits = tf.layers.dense(L3,n_classes,activation = None)
+    #print(L4)
+    L3_a = tf.layers.dense(L3,128,activation = tf.nn.relu)
+    #print(L4)
+    L3_a = tf.layers.dropout(L3_a,0.5,is_training)   
+    
+    
+    logits = tf.layers.dense(L3_a,n_classes,activation = None)
     #print(model)
     
     return logits
@@ -284,19 +320,19 @@ def LeNet2(X):
 |:---------------------:|:---------------------------------------------:| 
 | Optimizer        		| AdamOptimizer   							| 
 | Batch size     	|  100 	|
-| Epoch size					|		25										|
+| Epoch size					|		30										|
 | Learning rate	      	| 0.001				|
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 My final model results were:
 * training set accuracy of 1
-* validation set accuracy of 0.954 
+* validation set accuracy of 0.940 
 
 | Data set        		|     Accuracy	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Training       		| 1  							| 
-| Validation    	|  0.954 	|
+| Validation    	|  0.940 	|
 
 If an iterative approach was chosen:
 * The first chosen architecture: 2 conv+2 max pool+ 1 FC
@@ -304,23 +340,24 @@ If an iterative approach was chosen:
   * Issue details: 
      I faced both under fitting and over-fitting( validation dataset resulted in poor accuracy)
      The following changes were made to tackle the issue:
-       a. added a drop-out at FC
+       a. added a drop-out at FC and convolution
+       b. added more hidden layers
+       c. adjusted drop out rate per layer
        b. adjusted batch,epoch/learning rate
-       c. improved image pre-processing
+       c. improved image pre-processing by revisiting normalization
 
 * Steps to improve the accuracy:
   - Found mistakes on normalization equation. 
   - Found validation dataset also needs to be pre-processed. 
-  - Found batch size increases, I am facing memory issue.... 
+  - Found batch size increases, I am facing memory issue.... therefore, traded off with epoch size.
   - I added drop out on FC, it improves a bit, but not that much. The gross improvement arrived by adjusting image pre-processing on validation data set and fixing wrong pre-processing equation. 
 
 * Further improvement (or things I could try) and questions to seek by myself:
 
-  - Adding more hidden layers, and increase number of layers
   - how can I characterize what hyperparameter can influence more on the accuracy performance
-  - try to implement reknown architecture like AlexNet to see what benefit I can take. 
+  - try to implement reknown architecture like AlexNet, Nvidia,etc. to see what benefit I can take. 
   - need to explore more about image pre-processing ( at the end of the day, it's all driven by how to extract and polish the image to feed in CNN)
-  - I need to learn more matplotlib to visualize data. 
+  - I need to learn more matplotlib to visualize data efficiently. 
 
 ### Test a Model on New Images
 
