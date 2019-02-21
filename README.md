@@ -498,7 +498,9 @@ Image Accuracy = 1.000
 
 
 
-#### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
+#### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. 
+- stop sign accuracy isn't great and close to a sign (can't recognize the figure surrounded by a stop sign circle), but it puts highest probability to classify stop sign correctly, but onyl 7% difference from another sign posture. 
+I may consider more learning to have correct result (Previous submission got me the better result, but it wasn't robust enough as the accuracy is sporatically distributed per each learning execution). 
 
 ```python
 
