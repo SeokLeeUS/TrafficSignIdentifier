@@ -361,7 +361,7 @@ If an iterative approach was chosen:
 
 ### Test a Model on New Images
 
-#### 1. Choose German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+#### 1.1 Choose German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
 * Here are random German traffic signs that I found on the web:
 
@@ -377,6 +377,56 @@ my_signs = np.array(my_signs)
 my_signs_gray = np.sum(my_signs/3, axis=3, keepdims=True)
 my_signs_normalized = my_signs_gray/255-1
 ```
+
+#### 1.2 Here is how to resize an image to 32x32 pixel based on another example images:
+
+![random_German_traffic_sign_1](./random_german_sign_1.png)
+
+1.2.1 how to find the image properties:
+
+```python
+# sample signs image shape and other information:
+my_signs_array_1 = np.array(my_signs_1)
+print('images shape:',my_signs_array_1.shape)
+
+from PIL import Image
+import os.path
+
+for i in range(len(my_images_1)):
+    file_path = './mysigns/%d.jpg'
+    file_path = file_path % (i+1)
+    filename = os.path.join(file_path)
+    img_test_1 = Image.open(filename)
+    width,height = img_test_1.size
+    print('Dimensions #',i,':', img_test_1.size,'total pixels:',width*height)
+```
+
+1.2.1 how to resize:
+
+```python
+
+for i in range(len(my_images_1)):
+    file_path = './mysigns/%d.jpg'
+    file_path = file_path % (i+1)
+    filename = os.path.join(file_path)
+    img_test_2 = Image.open(filename)  
+    new_width =  32
+    new_height = 32
+    img_test_2 = img_test_2.resize((new_width,new_height),Image.ANTIALIAS)
+    width,height = img_test_2.size
+    print('Dimensions #',i,':', img_test_2.size,'total pixels:',width*height)
+    img_test_2.save('./mysigns/%d_1.jpg' %(i+1))
+
+```python
+
+![random_German_traffic_sign_1_resized](./random_german_sign_1_resized.png)
+
+1.2.2 after pre-processing (normalization/grayscale):
+
+![random_German_traffic_sign_1_preprocessed](./random_german_sign_1_resized_preprocessed.png)
+
+
+
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
